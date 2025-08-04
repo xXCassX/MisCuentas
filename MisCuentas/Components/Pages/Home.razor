@@ -1,0 +1,42 @@
+﻿@page "/"
+
+<h1>Mis Cuentas</h1>
+
+<div>
+    <input @bind="newCuenta" />
+    <button @onclick="addCuenta">Agregar Cuentas</button>
+</div>
+
+<ul>
+    @foreach (var cuenta in cuentas)
+    {
+        <li>
+             <div>@cuenta.Name</div>
+            <button onclick="() => RemoveCuenta(cuenta)">Eliminar</button>
+        </li>
+    }
+</ul>
+
+@code {
+    public List<TodoItem> cuentas = new();
+    public string newCuenta = "";
+
+    public void addCuenta()
+    {
+        if(!string.IsNullOrWhiteSpace(newCuenta))
+        {
+            cuentas.Add(new TodoItem { Name = newCuenta });
+            newCuenta = "";
+        }
+    }
+
+    public void RemoveCuenta (TodoItem cuenta)
+    {
+        cuentas.Remove(cuenta);
+    }
+
+    public class TodoItem
+    {
+        public string Name { get; set; } = "";
+    }
+}

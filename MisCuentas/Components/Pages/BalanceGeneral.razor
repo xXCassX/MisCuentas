@@ -1,0 +1,70 @@
+﻿@page "/balanceGeneral"
+
+<h1>Balance General</h1>
+
+<p>This component demonstrates showing data.</p>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><button>Mes Anterior</button></th>
+                    <th><button>Mes Actual</button></th>
+                    <th><button>Año</button></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>
+                        <NavLink class="nav-link" href="activos">
+                            <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Activos
+                        </NavLink>
+                    </th>
+                        <td>forecast.TemperatureC</td>
+                </tr>
+                <tr>
+                    <th>
+                        <NavLink class="nav-link" href="pasivos">
+                            <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Pasivos
+                        </NavLink>
+                    </th>
+                </tr>
+                <tr>
+                    <th>Balance Total</th>
+                </tr>
+            
+            </tbody>
+        </table>
+}
+
+@code {
+    private WeatherForecast[]? forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Simulate asynchronous loading to demonstrate a loading indicator
+        await Task.Delay(500);
+
+        var startDate = DateOnly.FromDateTime(DateTime.Now);
+        var summaries = new[] { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };
+        forecasts = Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        {
+            Date = startDate.AddDays(index),
+            TemperatureC = Random.Shared.Next(-20, 55),
+            Summary = summaries[Random.Shared.Next(summaries.Length)]
+        }).ToArray();
+    }
+
+    private class WeatherForecast
+    {
+        public DateOnly Date { get; set; }
+        public int TemperatureC { get; set; }
+        public string? Summary { get; set; }
+        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    }
+}

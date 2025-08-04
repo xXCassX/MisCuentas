@@ -1,0 +1,16 @@
+﻿
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 100%; /* Ocupa todo el ancho */
+    text-align: center;
+}
+
+.column {
+  width: 50%; /* Ancho igual para cada columna */
+  padding: 10px;
+}
+
+h6 {
+    font-weight: bold;
+}
